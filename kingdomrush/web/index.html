@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#203a32">
+  <meta name="description" content="王国保卫战：前线 HTML5 塔防。15张原版地图、四类防御塔、英雄、援军与火雨，打开浏览器即玩。">
+  <title>王国保卫战：前线 · ATB Arcade</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23203a32' d='M8 8h48v29L32 59 8 37z'/%3E%3Cpath fill='%23e9bf72' d='M20 19h7v9h10v-9h7v27H20z'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="data.js" defer></script>
+  <script src="sprites.js" defer></script>
+  <script src="sounds.js" defer></script>
+  <script src="engine.js" defer></script>
+  <script src="renderer.js" defer></script>
+  <script src="audio.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <svg class="icon-defs" aria-hidden="true"><defs>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 4 8 9 8 9s8-5 8-9V6Z"/><path d="M8 9h8M12 7v9"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20 5c-3-3-7-1-8 2C11 4 7 2 4 5c-5 5 2 11 8 15 6-4 13-10 8-15Z"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v10m3-8c-5-3-8 3-3 3s2 6-3 3"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4c5-4 8 4 14 0v10c-6 4-9-4-14 0"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="m11 4-5 4H3v8h3l5 4Zm4 4c3 2 3 6 0 8m3-11c5 4 5 10 0 14"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 8c0-4 8-3 6 1-1 2-3 2-3 5m0 3v1"/></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></symbol>
+    <symbol id="i-fire" viewBox="0 0 24 24"><path d="M13 2c2 6-5 6-3 11 2 2 5-1 5-4 7 7 6 13-3 13C1 22 2 12 7 8c0 5 3 4 3 1 0-2 0-5 3-7Z"/></symbol>
+    <symbol id="i-swords" viewBox="0 0 24 24"><path d="M3 3 15 15M3 3l1 6 4-1 1-4Zm18 0L9 15m12-12-1 6-4-1-1-4ZM13 17l4-4m0 4 4 4M7 13l4 4m-4 0-4 4"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M18 9c0 5-6 12-6 12S6 14 6 9a6 6 0 1 1 12 0Z"/><circle cx="12" cy="9" r="2"/></symbol>
+  </defs></svg>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark"><svg><use href="#i-shield"/></svg></span><span>ATB <b>ARCADE</b></span><span class="brand-divider"></span><span class="brand-sub">经典，再次启程。</span></div>
+    <div class="top-actions"><span class="edition"><i></i> WEB EDITION</span><button id="help-button" class="icon-button" aria-label="玩法帮助"><svg><use href="#i-help"/></svg></button><button id="sound-button" class="icon-button" aria-label="关闭声音" aria-pressed="false"><svg><use href="#i-volume"/></svg></button><button id="fullscreen-button" class="icon-button" aria-label="全屏游戏"><svg><use href="#i-expand"/></svg></button></div>
+  </header>
+  <main>
+    <div class="page-heading"><div><div class="eyebrow">THE FRONTIER IS CALLING</div><h1>王国保卫战<span>：前线</span></h1><p>筑起防线，让冒险在这里继续。</p></div><button class="campaign-button" id="campaign-button"><svg><use href="#i-flag"/></svg><span>战役地图 <small id="campaign-count">01 / 15</small></span><span>⌄</span></button></div>
+    <div class="game-layout">
+      <section class="battle-column" aria-label="战场与控制">
+        <div class="battle-shell">
+          <div class="battle-hud"><div class="mission-title"><span id="mission-number">01</span><div><small id="biome-label">沙漠战役</small><strong id="mission-name">沙锤营地</strong></div></div><div class="resources"><div class="resource lives"><svg><use href="#i-heart"/></svg><strong id="lives">20</strong></div><div class="resource gold"><svg><use href="#i-coin"/></svg><strong id="gold">300</strong></div><div class="resource wave"><svg><use href="#i-flag"/></svg><strong id="wave">0<small> / 6</small></strong></div></div></div>
+          <div class="canvas-wrap" id="canvas-wrap">
+            <canvas id="battle" width="800" height="600" tabindex="0" aria-label="塔防战场。点击空地建塔。也可使用右侧建造点选择框和建造按钮。"></canvas>
+            <div id="intro" class="intro-cover"><div class="intro-card"><span class="intro-emblem"><svg><use href="#i-shield"/></svg></span><div class="eyebrow">FOR THE KINGDOM</div><h2>前线，需要一位指挥官。</h2><p>建造防御塔，集结英雄与援军。<br>守住道路，抵御即将来临的敌人。</p><button id="start-button" class="primary-button">开始守卫 <svg><use href="#i-arrow"/></svg></button><small>点击建造点布防 · 随时可以暂停</small></div></div>
+            <div class="map-caption"><span id="map-status">准备布防</span><span>FRONTIERS</span></div>
+            <div class="target-hint" id="target-hint" hidden>点击道路选择目标 <button id="cancel-target">取消 Esc</button></div>
+          </div>
+          <div class="control-dock"><button class="hero-control" id="hero-button" title="选择英雄 (H)"><span class="hero-avatar" id="hero-avatar"></span><span><strong>艾尔利克</strong><small id="hero-status">英雄 · Lv.1</small></span><kbd>H</kbd></button><span class="dock-divider"></span><button class="skill-control fire-skill" id="fire-button" title="火雨 (Q)"><span class="skill-icon"><svg><use href="#i-fire"/></svg><span class="cooldown" id="fire-cooldown"></span></span><span><strong>火雨</strong><small id="fire-label">范围轰击</small></span><kbd>Q</kbd></button><button class="skill-control" id="reinforce-button" title="援军 (E)"><span class="skill-icon"><svg><use href="#i-swords"/></svg><span class="cooldown" id="reinforce-cooldown"></span></span><span><strong>援军</strong><small id="reinforce-label">支援防线</small></span><kbd>E</kbd></button><div class="playback"><button id="speed-button" title="切换速度">1×</button><button id="pause-button" aria-label="暂停游戏 (P)"><svg><use href="#i-pause"/></svg></button></div></div>
+        </div>
+        <div class="battle-bottom"><span><i></i><span id="battle-tip">先点击空地建造防御塔，再召唤敌人。</span></span><button id="wave-button" class="wave-button">召唤第 1 波 <svg><use href="#i-arrow"/></svg></button></div>
+      </section>
+      <aside class="command-panel"><div class="panel-heading"><span class="eyebrow">COMMAND POST</span><span class="tiny-shield"><svg><use href="#i-shield"/></svg></span></div><h2 id="inspector-title">构筑你的防线</h2><p class="panel-description" id="inspector-description">选择一处建造点，部署你的第一座防御塔。</p><label class="site-label" for="site-select">建造位置 <span id="site-count">12 处可用</span></label><select id="site-select"><option value="-1">在战场上选择空地</option></select><div id="inspector" class="inspector"></div><div class="field-notes"><span class="notes-mark">✦</span><div><strong>指挥官笔记</strong><p id="strategy-note">兵营负责拦截，弓箭与法师负责输出。组合建塔比单一防御更有效。</p></div></div><button id="range-button" class="range-toggle" aria-pressed="false"><span class="range-dot"></span>显示全部攻击范围<span id="range-state">关</span></button><div class="chapter-progress"><div><span>战役进度</span><strong id="progress-label">0 / 15</strong></div><div class="progress-track"><span id="progress-fill"></span></div><small>沙漠 · 丛林 · 地下世界</small></div></aside>
+    </div>
+    <footer><span>Kingdom Rush Frontiers <span class="footer-dot">·</span> 原版素材 / HTML5 重建</span><span><kbd>1</kbd>–<kbd>4</kbd> 建塔 <span class="footer-dot">·</span><kbd>N</kbd> 下一波 <span class="footer-dot">·</span><kbd>P</kbd> 暂停</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="help-dialog" class="modal"><button class="modal-close" data-close="help-dialog" aria-label="关闭帮助">×</button><span class="eyebrow">HOW TO PLAY</span><h2>守住每一条道路。</h2><p>点击战场空地或选择建造位置，然后建造防御塔。点击已有塔可以升级、出售，三级塔可以选择专精。</p><div class="help-grid"><div><strong>弓箭塔</strong><p>快速物理攻击，可以攻击飞行敌人。</p></div><div><strong>兵营</strong><p>三名士兵拦住地面敌人，可调整集结点。</p></div><div><strong>法师塔</strong><p>用魔法打击敌人，穿透物理护甲。</p></div><div><strong>炮兵塔</strong><p>范围攻击地面目标，适合应对密集敌群。</p></div></div><p>点击艾尔利克或按 H，再点击道路让英雄移动。Q 选择火雨，E 选择援军，点击道路施放。Esc 取消选择，N 提前召唤下一波，P 或空格暂停。每关的战果会自动保存。</p><p class="help-note">本版使用原版 15 关地图、路径与波次配置重建。首领和塔专精采用简化规则；未包含英雄全阵容、星级科技树与原版支线挑战。</p><button class="primary-button" data-close="help-dialog">明白，返回战场</button></dialog>
+  <dialog id="campaign-dialog" class="modal campaign-modal"><button class="modal-close" data-close="campaign-dialog" aria-label="关闭战役地图">×</button><span class="eyebrow">CHOOSE YOUR BATTLE</span><h2>每一道防线，都是新的冒险。</h2><p>15 个原版战场均可自由体验。重新部署会开始一场新的战斗。</p><div class="difficulty-choice"><label for="difficulty">战斗难度</label><select id="difficulty"><option value="casual">休闲</option><option value="normal" selected>普通</option><option value="veteran">老兵</option></select></div><div id="campaign-grid" class="campaign-grid"></div></dialog>
+  <dialog id="pause-dialog" class="modal small-modal"><span class="eyebrow">TAKE A BREATH</span><h2>战场已暂停</h2><p>你的防线正在等待下一道指令。</p><button id="resume-button" class="primary-button">继续战斗 <svg><use href="#i-arrow"/></svg></button><button id="restart-button" class="secondary-button">重新部署本关</button><button class="text-button" data-campaign>查看战役地图</button></dialog>
+  <dialog id="result-dialog" class="modal small-modal"><span class="eyebrow" id="result-eyebrow">VICTORY</span><div id="result-stars" class="result-stars">✦ ✦ ✦</div><h2 id="result-title">防线，屹立不倒。</h2><p id="result-description"></p><button id="next-stage-button" class="primary-button">前往下一关 <svg><use href="#i-arrow"/></svg></button><button id="retry-button" class="secondary-button">再次挑战</button><button class="text-button" data-campaign>查看战役地图</button></dialog>
+</body>
+</html>

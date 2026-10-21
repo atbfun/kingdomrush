@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-19",
+  "browser": "155.0.8059.39",
+  "checks": [
+    {
+      "name": "screen_initial",
+      "passed": true,
+      "canvasColoredRatio": 1
+    },
+    {
+      "name": "User gesture unlock and native AAC decode",
+      "passed": true,
+      "context": "running",
+      "duration": 0.326875
+    },
+    {
+      "name": "Space activates focused buttons and hero frame coordinates are finite",
+      "passed": true
+    },
+    {
+      "name": "UI construction and wallet",
+      "passed": true
+    },
+    {
+      "name": "screen_gameplay",
+      "passed": true,
+      "canvasColoredRatio": 0.9999958333333333
+    },
+    {
+      "name": "Pause freezes and resume continues",
+      "passed": true
+    },
+    {
+      "name": "Targeted reinforcement and hero movement",
+      "passed": true
+    },
+    {
+      "name": "Help dialog preserves battle state",
+      "passed": true
+    },
+    {
+      "name": "screen_stage2",
+      "passed": true,
+      "canvasColoredRatio": 1
+    },
+    {
+      "name": "Campaign navigation resets battle state",
+      "passed": true
+    },
+    {
+      "name": "Full first-stage victory, persistent three-star score and next-stage UI",
+      "passed": true
+    },
+    {
+      "name": "All 15 stage renders",
+      "passed": true,
+      "minimumCanvasColoredRatio": 0.9999833333333333
+    },
+    {
+      "name": "Browser animation sample",
+      "passed": true,
+      "averageFrameMs": 16.666666666666668,
+      "maxFrameMs": 16.800000000000182
+    },
+    {
+      "name": "390 px touch targeting, construction and no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "file:// launch, images, construction and wave",
+      "passed": true
+    },
+    {
+      "name": "screen_fallback",
+      "passed": true,
+      "canvasColoredRatio": 1
+    },
+    {
+      "name": "Corrupt map and sprites use geometric rendering without exceptions",
+      "passed": true
+    },
+    {
+      "name": "Corrupt local save recovers",
+      "passed": true
+    }
+  ],
+  "consoleErrors": []
+}
